@@ -30,5 +30,13 @@
         "availableVancancy": 15,
         "totalVacnacy": 128,
         "status": "預定"
+    },
+    {
+        "guaranteed": false,
+        "date": "2018/01/25",
+        "price": 21900,
+        "availableVancancy": 15,
+        "totalVacnacy": 128,
+        "status": "預定"
     }
 ]

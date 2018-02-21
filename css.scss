@@ -83,7 +83,8 @@ $classname: 'calendar';
   }
   .days td {
     max-width: 14.28571%;
-    width: 14.28571%;}
+    width: 14.28571%;
+  }
 
     .tab.now>a {
     background-color: #fff;
@@ -199,8 +200,79 @@ $classname: 'calendar';
   .lg-org{
     color: #ff7800;
   }
-/**/
 
+  .tip{
+    position: absolute;
+    height: 48px;
+    width: 20px;
+    top: 0;
+    right: -1px;
+    line-height: 20px;
+    background: #66bb3c;
+  }
+/**/
+  /*calendars_daymode,calendars_listmode*/
+  .d-no{
+    display: none;
+  }
+  .listH{
+    min-height: 496px;
+    width: 100%;
+  }
+  .listH>ul{
+    width: 100%;
+  }
+  .listH>ul>li{
+        width: 100%;
+        height: 62px;
+        display: table;
+        border-style: solid;
+        border-color: transparent #e3e3e3 #e3e3e3;
+        border-width: 1px;
+        cursor: pointer;
+  }
+  .listH>ul>li:hover{
+    border: 1px solid #66bb3c;
+    background-color: #fff9e3;
+    }
+  .listH>ul>li.active{
+      border: 1px solid #66bb3c;
+      background-color: #fff9e3;
+      }
+
+  .li-left,.li-mid,.li-right{
+
+  }
+  .li-block.date span {
+    display: block;
+    font-size: 16px;
+}
+  .li-block{
+    height: 100%;
+    padding: 5px;
+    display: table-cell;
+  }
+  .li-block.date {
+    color: #666;
+    text-align: center;
+    font-size: 24px;
+  }
+  .li-block.li-left,.li-block.li-right {
+    width: 1%;
+    white-space: nowrap;
+    }
+    .lbcontent>span {
+    margin-right: 30px;
+    }
+    .price-label{
+     display: block;
+     text-align: right;
+    font-size: 16px;
+    }
+    .li-block.price{
+      display: block;
+    font-size: 16px;
+  }
 
   @media screen and (max-width:376px) {
 
