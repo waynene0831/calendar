@@ -25,7 +25,7 @@ class Module {
              $('.pre').on('click',function(){
              	{$('.calendars_tbody').remove();
              	$('.newtab').find('.now').prev().addClass('now');
-             	$('.newtab').find('.now').next().removeClass('now');      	
+             	$('.newtab').find('.now').next().removeClass('now');
               	// $('.newtab').children('.tab:eq(0)').css('margin-left','0');
               	self.creatnewtbody();
               	//要再匯入一次ajax
