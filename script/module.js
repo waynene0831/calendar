@@ -121,7 +121,6 @@ class Module {
 			//   invalidEntries++;
 			//   return false; 
 			// }
-
 			// var arrByID = arr.filter(filterByID);
 			//
 
@@ -171,7 +170,7 @@ class Module {
 
             //let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
             for(i = 0; i<3; i++){//3記得改回numofdata
-                const lidate= daydateControl[i].date;
+                const lidate = daydateControl[i].date;
                 //console.log(lidate);//日期
                 const liNewDate = new Date(lidate);//把日期設為這個迴圈的日期
                 const liMonth = liNewDate.getMonth();
@@ -185,6 +184,8 @@ class Module {
 				lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
                 //console.log(lihtml);
                 };
+
+
 
                 //----------------------------3
             $('.newtab').append(lihtml);
