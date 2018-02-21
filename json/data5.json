@@ -1,0 +1,34 @@
+[
+    {
+        "guaranteed": false,
+        "date": "2018/10/06",
+        "price": 76263,
+        "availableVancancy": 16,
+        "totalVacnacy": 166,
+        "status": "預定"
+    },
+    {
+        "guaranteed": false,
+        "date": "2018/07/28",
+        "price": 52251,
+        "availableVancancy": 38,
+        "totalVacnacy": 396,
+        "status": "預定"
+    },
+    {
+        "guaranteed": true,
+        "date": "2017/12/29",
+        "price": 68789,
+        "availableVancancy": 20,
+        "totalVacnacy": 342,
+        "status": "截止"
+    },
+    {
+        "guaranteed": false,
+        "date": "2018/01/25",
+        "price": 21900,
+        "availableVancancy": 15,
+        "totalVacnacy": 128,
+        "status": "預定"
+    }
+]

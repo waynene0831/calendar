@@ -1,0 +1,216 @@
+// -------------------------------------
+// Susy Import
+// -------------------------------------
+//@import "susy";
+// -------------------------------------
+// Core Mixins
+// -------------------------------------
+@import "../core/core/mixins";
+// -------------------------------------
+// Variables Import
+// -------------------------------------
+// 載入全域變數
+@import "../core/core/variables";
+// -------------------------------------
+// Components / Modules Setting
+// -------------------------------------
+// 請輸入您的ClassName
+$classname: 'calendar';
+// -------------------------------------
+// 您的CSS Code
+// -------------------------------------
+//以下範例可以刪除，改為您自已的CSS Code
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .borderl{
+    border: solid 1px #f1f1f1;
+  }
+
+.num{
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    color: #444;
+}
+
+  ul li {
+    list-style-type:none;
+  }
+
+  .box{
+    height: 85px;
+    position: relative;
+    border: solid 1px #f5f5f5;
+    box-sizing: border-box;
+    font-size: 12px;
+    line-height: 16px;
+    cursor: pointer;
+  }
+  .box.active{
+    border: solid 2px #66bb3c;
+    background:#fff9e3;
+  }
+  .clearfix{}
+  .nextmonth,.lastmonth{
+    background: #f8f8f8;
+    height: 85px;
+    position: relative;
+  }
+  .clearfix:after{
+    clear: both;
+  }
+  .week th{
+    line-height: 30px;
+  }
+  .week{
+    border: solid 1px #f5f5f5;
+  }
+
+  .calendars_tabWrap{
+    width: 100%;
+  display: table;
+  }
+  .calendars_tbody{
+    width: 100%;
+  display: table;
+  }
+  .lightbrown{
+     background: #ede9dd;
+  }
+  .days td {
+    max-width: 14.28571%;
+    width: 14.28571%;}
+
+    .tab.now>a {
+    background-color: #fff;
+    }
+    .tab.now>a>span {
+    color:#e10500;
+    }
+    .tab>a>span {
+        display: block;
+    }
+
+    .tab{
+      border-top: 3px solid #ede9dd;
+      width: 33.333%;
+      box-sizing: border-box;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      height: 50px;
+    }
+
+    .tab>a{
+    display: inline-block;
+    font-size: 16px;
+    height: 50px;
+    color: #666;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 6px;
+   }
+
+
+
+  .newtab{
+    padding: 0;
+    float: left;
+    width: calc(100% - 40px);
+    margin-bottom: 0;
+    white-space: nowrap;
+    font-size: 0;
+    overflow: hidden;
+    height: 50px;
+    position: relative;
+    box-sizing: border-box;
+   }
+
+    .calendars_tabWrap>a{
+      display: block;
+      width: 20px;
+      float: left;
+      color: transparent;
+      position: relative;
+    }
+
+
+
+/*------------------------------------*/
+    .next,.pre{
+      cursor: pointer;
+      height: 50px;
+    }
+
+  .next:before {
+    right: -1px;
+    border-width: 7px 0 7px 7px;
+    border-color: transparent transparent transparent #e10500;
+   }
+   .pre:before {
+    left: -1px;
+    border-width: 7px 7px 7px 0;
+    border-color: transparent #e10500 transparent transparent;
+   }
+   .details{
+    padding-top: 18px;
+    position: relative;
+    font-size: 12px;
+    }
+   
+    .price,.sell,.group{
+    display: inline-block;
+    width: 100%;
+    line-height: 16px;
+    position: relative;
+    }
+    .status{
+      color:#24a07c;
+    }
+    .price{
+    color: #e10500;
+    }
+    .sell i,.group i{
+      font-style: normal;
+    }
+   .calendars_tabWrap>a:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    }
+
+  .box:hover{
+    background:#fff9e3;
+  }
+  /*span 在各種不同字的時候改變顏色*/
+  .lg-org{
+    color: #ff7800;
+  }
+/**/
+
+
+  @media screen and (max-width:376px) {
+
+  }
+  @media screen and (min-width: $screen-tablet) {
+     
+  }
+  @media screen and (min-width: $screen-desktop) {
+    
+  }
+  @media screen and (min-width: $screen-lg-desktop) {
+    
+  }
