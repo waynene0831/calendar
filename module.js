@@ -194,19 +194,18 @@ class Module {
 	}
 
 	init () {   
-
 	        //margin-left:-33.333%; -66.666%; -99.999%
 			//--------------------------month-UL
             this.$ele.append('<div class="calendars_tabWrap lightbrown"><a class="pre"></a><ul class="newtab tabcontrol"></ul><a  class="next"></a></div>');         				
             //--------------------------thead
-            this.$ele.append('<table class="calendars_tbody"><thead class=""><tr class="week"><th>星期日</th><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th></tr></thead></table><div class="calendars_list d-no"></div>');
+            this.$ele.append('<table class="calendars_tbody"><thead class=""><tr class="week"><th>星期日</th><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th></tr></thead></table><div class="calendars_list d-no"><div class="listH"></div></div>');
             //--------------------------tbody
 	       	this.getajax();
          	
              //-----------------按鈕刪除月曆
              $('.pre').on('click',function(){
              	{$('.calendars_tbody').remove();
-             	$('.listH').remove();
+             	$('.listH>ul').remove();
              	$('.newtab').find('.now').prev().addClass('now');
              	$('.newtab').find('.now').next().removeClass('now');
               	// $('.newtab').children('.tab:eq(0)').css('margin-left','0');
@@ -215,7 +214,7 @@ class Module {
 
              });
                $('.next').on('click',function(){
-             	$('.listH').remove();
+             	$('.listH>ul').remove();
              	$('.calendars_tbody').remove();
              	$('.newtab').find('.now').next().addClass('now');
              	$('.newtab').find('.now').prev().removeClass('now');           	
@@ -255,7 +254,7 @@ class Module {
 			// console.log(j);
 
             $.ajax({method: 'GET',
-			url: './json/data5.json'
+			url: './json/data4.json'
 			}).done(function(data){
             let daydata  = JSON.parse(data);	
 			//console.log(daydata);
@@ -273,7 +272,6 @@ class Module {
 					  }
 					}
 					//console.log(daydata);
-				
 			 //---------------------------篩選json資料重複的------------------------
             const daydateControl = daydata.sort(function (a, b) {
 				 return a.date > b.date ? 1 : -1;
@@ -285,25 +283,6 @@ class Module {
 			//------------------------------到這邊為止是整理json進來的資料---------------------------
 			//------------------------------這邊開始設定日期----------------------------------------
 		    
-		    //var newArray = arr.filter(callback[, thisArg])
-			// callback
-			// 此函式為一個斷言，用於測試陣列中的每個元素。
-			// 回傳值為 true 時將當前的元素保留至新陣列中，
-			// 若為 false 則不保留。可傳入三個參數：
-			// 篩選年份跟月份 產li 那個月設定成tab 然後加now
-
-			// function isNumber(obj) {
-			//  return obj!== undefined && typeof(obj) === 'number' && !isNaN(obj);
-			// }
-			// function filterByID(item) {
-			//   if (isNumber(item.id)) {
-			//     return true;
-			//   } 
-			//   invalidEntries++;
-			//   return false; 
-			// }
-			// var arrByID = arr.filter(filterByID);
-			//
 
          	const firstday = daydateControl[1].date;//######//整串的第一個整串資料的第二筆產月曆
             //console.log(firstday);
@@ -338,36 +317,39 @@ class Module {
             //------------------新作的tab
             //抓到預設起始月份 //201705
    //          console.log(self.option.initYearMonth.substring(0,4));
-   //          const aaayear = self.option.initYearMonth.substring(0,4); //2017
-   //          console.log(self.option.initYearMonth.substring(4.5)); 
-   //          const aaamonth =self.option.initYearMonth.substring(4.5); //05
-   //          const aaatime = moment().set({'year': aaayear, 'month': aaamonth});
+            const aaayear = self.option.initYearMonth.substring(0,4); //2017
+   //       console.log(self.option.initYearMonth.substring(4.5)); 
+           	const aaamonth =self.option.initYearMonth.substring(4.5); //05
+            	const aaatime = moment().set({'year': aaayear, 'month': aaamonth});
    //          console.log(aaatime);//用他的前後月
-   //          const resetMonth = aaatime.get('Month')+1;
-   //          const resetYear  = aaatime.get('Year');
-   //          lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
-   //          console.log(lihtml);
+   			const resetYear  = aaatime.get('Year');
+
+            const resetMonth = aaatime.get('Month');   
+            const preMonth = resetMonth-1;
+            const nextMonth = resetMonth+1; 
+            lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+preMonth+"月"+'</a></span></li>'
+            lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
+            lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+nextMonth+"月"+'</a></span></li>'
+            //console.log(lihtml);
+
             //--------------------tab2
-
+//--------------------------抓ajax檔案做的li
             //let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
-            for(i = 0; i<3; i++){//3記得改回numofdata
-                const lidate = daydateControl[i].date;
-                //console.log(lidate);//日期
-                const liNewDate = new Date(lidate);//把日期設為這個迴圈的日期
-                const liMonth = liNewDate.getMonth();
-                //console.log(liMonth);//這個迴圈的月份
-                const liYear = liNewDate.getFullYear();
-                //console.log(liYear);
-				let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
-             	//console.log(resetTime);//
-				const resetMonth = resetTime.get('Month')+1;
-				const resetYear  = resetTime.get('Year');
-				lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
+    //         for(i = 0; i<3; i++){//3記得改回numofdata
+    //             const lidate = daydateControl[i].date;
+    //             //console.log(lidate);//日期
+    //             const liNewDate = new Date(lidate);//把日期設為這個迴圈的日期
+    //             const liMonth = liNewDate.getMonth();
+    //             //console.log(liMonth);//這個迴圈的月份
+    //             const liYear = liNewDate.getFullYear();
+    //             //console.log(liYear);
+				// let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
+    //          	//console.log(resetTime);//
+				// const resetMonth = resetTime.get('Month')+1;
+				// const resetYear  = resetTime.get('Year');
+				// lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
                 //console.log(lihtml);
-                };
-
-
-
+                // };
                 //----------------------------3
             $('.newtab').append(lihtml);
             //----產tab end  
@@ -377,7 +359,7 @@ class Module {
 			$('.tab').on('click',function(){
 			 	$('.calendars_tbody').remove();
 			 		$('.newtab').find('.now').removeClass('now');
-			 		$('.listH').remove();
+			 		$('.listH>ul').remove();
 			 		$(this).addClass('now');
 			 		self.creatnewtbody();
 			       });
@@ -430,7 +412,7 @@ class Module {
 				       
 				        if(cuttectDate===rr){      	
 				       		html += '<div class="details"><span class="status">'+daydateControl[k].status+'</span><span class="sell">可賣 : <i>'+daydateControl[k].availableVancancy+'</i></span><span class="group">團位 : <i>'+daydateControl[k].totalVacnacy+'</i></span><span class="price">$'+daydateControl[k].price+'</span></div>';
-				       		list += '<div class="listH"><ul><li><div class="li-left li-block date">'+j+'<span>星期'+day_list[weekday]+'</span></div><div class="li-mid li-block"><div class="lbcontent"><span>可賣:'+daydateControl[k].availableVancancy+'</span><span>團位:'+daydateControl[k].totalVacnacy+'</span></div></div><div class="li-right li-block"><span class="status price-label">報名</span><span class="price">$'+daydateControl[k].price+'</span></div></li></ul></div>';	
+				       		list += '<ul><li><div class="li-left li-block date">'+j+'<span>星期'+day_list[weekday]+'</span></div><div class="li-mid li-block"><div class="lbcontent"><span>可賣:'+daydateControl[k].availableVancancy+'</span><span>團位:'+daydateControl[k].totalVacnacy+'</span></div></div><div class="li-right li-block"><span class="status price-label">報名</span><span class="price">$'+daydateControl[k].price+'</span></div></li></ul>';	
 				        }		       		
 				    	};	
 	                //---------對日期塞detail end
@@ -453,13 +435,13 @@ class Module {
             html += '</tr>';
 	        html += '</tbody>';
 	        $('.calendars_tbody').append(html);
-	        $('.calendars_list').append(list);
+	        $('.listH').append(list);
 
 	        
 	        //-----點擊特效
-	        $('.box').on('click',function(){
-				$('.box>.details').parent().addClass('active');
-			})
+	  //       $('.box').on('click',function(){
+			// 	$('.box>.details').parent().addClass('active');
+			// })
 
 
 			});
@@ -467,16 +449,11 @@ class Module {
 			}
 
 
-
-	methods () {
-			return this;
-			}
-
     creatnewtbody(){
     				//ajax 把要得抓來
     				//把class依樣加進年月日 在對好塞span
     				$.ajax({method: 'GET',
-					url: './json/data5.json'
+					url: './json/data4.json'
 					}).done(function(data){
 		             let daydata  = JSON.parse(data);	
 					//console.log(daydata);
@@ -554,8 +531,7 @@ class Module {
 			                //------------------------
 			                //---------對日期塞detail 
 			         		for(let k = 0; k<numofdata; k++){
-						         const DD = parseInt(daydateControl[k].date.substring(8.9));//全部的天數//
-						         
+						         const DD = parseInt(daydateControl[k].date.substring(8.9));//全部的天數//				         
 						         const MM = parseInt(daydateControl[k].date.substring(5.7));//月份
 
 						         const aaa=	daydateControl[k].date;
@@ -573,9 +549,9 @@ class Module {
 						         //console.log(rr);
 						        if(cuttectDate===rr){      	
 						       		html += '<div class="details"><span class="status">'+daydateControl[k].status+'</span><span class="sell">可賣 : <i>'+daydateControl[k].availableVancancy+'</i></span><span class="group">團位 : <i>'+daydateControl[k].totalVacnacy+'</i></span><span class="price">$'+daydateControl[k].price+'</span></div>';
-						       		newlist += '<div class="listH"><ul><li><div class="li-left li-block date">'+j+'<span>星期'+day_list[aaagetdays]+'</span></div><div class="li-mid li-block"><div class="lbcontent"><span>可賣:'+daydateControl[k].availableVancancy+'</span><span>團位:'+daydateControl[k].totalVacnacy+'</span></div></div><div class="li-right li-block"><span class="status price-label">報名</span><span class="price">$'+daydateControl[k].price+'</span></div></li></ul></div>';	
+						       		newlist += '<ul><li><div class="li-left li-block date">'+j+'<span>星期'+day_list[aaagetdays]+'</span></div><div class="li-mid li-block"><div class="lbcontent"><span>可賣:'+daydateControl[k].availableVancancy+'</span><span>團位:'+daydateControl[k].totalVacnacy+'</span></div></div><div class="li-right li-block"><span class="status price-label">報名</span><span class="price">$'+daydateControl[k].price+'</span></div></li></ul>';	
 						        }
-						    	};	
+						    	};	//listH要改成加il
 			                //---------對日期塞detail end
 			                //------------------------
 			                html += '</div></td>';
@@ -601,18 +577,52 @@ class Module {
 			        }else{
 			        	$('.calendars_tbody').addClass('d-no');
 			        }
-			        $('.calendars_tbody').append(html);
-			       
-			        $('.calendars_list').append(newlist);
-
-			        $('.box').on('click',function(){
-						$('.box>.details').parent().addClass('active');
-					})
-
-
+			        $('.calendars_tbody').append(html);	       
+			        $('.listH').append(newlist);
 			    });//----ajax end
           	    return this;
           }
+         
+ 	inputData(inputOpt){
+        $.ajax({
+                dataType: "json",
+                method: 'GET',
+                url: './json/data5.json',
+            }).done(function(data){
+            let daydata  = JSON.parse(data);	
+             
+                	var lookup = {};
+					var items = daydata;
+					 daydata = [];
+					
+					for (var item, i = 0; item = items[i++];) {
+					  var date = item.date;
+					
+					  if (!(date in lookup)) {
+					    lookup[date] = 1;
+					    daydata.push(item);
+					  }
+					}
+					//console.log(daydata);
+			 	const inputnewData = inputOpt.concat(daydata);
+	            const inputnewDataControl = inputnewData.sort(function (a, b) {
+					 return a.date > b.date ? 1 : -1;
+					});//用date排序
+	            console.log(daydateControl);//排列過的順序
+
+                //連接inputData與dataSource
+				const numofinputnewData = inputnewDataControl.length; //算有幾筆資料  
+				const numofdaydateControl = daydateControl.length;
+            });
+             return this;
+   		 };
+	destroy(){
+        $('.calendars').empty();
+        return this;
+    }		
+	methods () {
+			return this;
+			}
 
 }
 
