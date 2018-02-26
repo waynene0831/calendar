@@ -243,7 +243,7 @@ $classname: 'calendar';
   .calendars_listmode>.calendars_daysWrap>.days:hover{
   background:#fff9e3;
   }
-    .calendars_listmode>.calendars_daysWrap>.days.active{
+  .calendars_listmode>.calendars_daysWrap>.days.active{
   background:#fff9e3;
   border: solid 1px #66bb3c;
   box-sizing: border-box;
@@ -253,6 +253,7 @@ $classname: 'calendar';
      text-align: center;
      font-size: 24px;
      float: left;
+     padding: 5px;
    }
   .calendars_listmode>.calendars_daysWrap>.days>.tip{
     float: left;
@@ -272,6 +273,7 @@ $classname: 'calendar';
     float: right;
     clear: right;
     font-size: 16px;
+
   }
 
   .calendars_listmode>.calendars_daysWrap>.days>.status{
@@ -287,9 +289,9 @@ $classname: 'calendar';
     display: inline-block;
     padding-right: 30px;
     }
-.listchange{
-  cursor: pointer;
-}
+  .listchange{
+    cursor: pointer;
+  }
   /*calendars_daymode,calendars_listmode*/
 
 
