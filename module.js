@@ -353,7 +353,6 @@ class Module {
 			 		$(this).addClass('now');
 			 		self.creatnewtbody();
 			       });
-
 			//-----------------------點擊換tbody end-------------
 
              //--------------------進來後第一個要顯示的tab
