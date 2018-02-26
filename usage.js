@@ -4,7 +4,7 @@
 	// 剩下的請用js產出來
 </div>
 
-*/
+*/,
 
 // Plugin usage
 
@@ -61,7 +61,7 @@ $('.calendars').calendar('prevMonth', function( data, module ) {
 	console.log(data, module);
 });
 // 切換日曆或列表模式
-$('.calendars').calendar('switch');
+$('.calendar').calendar('switch');
 // 加資料時如果有相同日期的資料，以後輸入為主，輸入時如果輸入沒有的月份，模組會加上該月份
 $('.calendars').calendar('inputData', [
 	{
@@ -87,7 +87,7 @@ $('.calendars').calendar('resetData', [
 	// ...
 ]);
 // destroy calendar，destroy時連class new出來的實例物件也要刪除
-$('.calendars').calendar('destroy');
+$('.calendar').calendar('destroy');
 
 
 // JSON template

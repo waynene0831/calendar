@@ -21,82 +21,78 @@ $classname: 'calendar';
 // -------------------------------------
 //以下範例可以刪除，改為您自已的CSS Code
 
+
+
   *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  .borderl{
-    border: solid 1px #f1f1f1;
-  }
-
-.num{
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    color: #444;
-}
-
   ul li {
     list-style-type:none;
   }
-
-  .box{
-    height: 85px;
-    position: relative;
-    border: solid 1px #f5f5f5;
-    box-sizing: border-box;
-    font-size: 12px;
-    line-height: 16px;
-    cursor: pointer;
+  .calendars_daymode>.calendars_daysWrap{
+    display: flex;
+    flex-wrap: wrap;
   }
-  .box.active{
+   .calendars_daymode>.calendars_daysWrap>.days{
+        position: relative;
+        width: (100%/7);
+        min-height: 85px;
+        border-left-width: 0;
+        border-top-width: 0;
+        border: solid 1px #f5f5f5;
+        cursor: pointer;
+  }
+
+   .calendars_daymode>.calendars_weeksWrap{
+    display: flex;
+  }
+  .calendars_daymode>.calendars_daysWrap>.days>.date>.weekday{
+      display: none;
+  }
+
+   .calendars_daymode>.calendars_weeksWrap>span{
+    flex:1;
+  }
+
+  .calendars_daymode>.calendars_daysWrap>.days.active{
     border: solid 2px #66bb3c;
     background:#fff9e3;
   }
+
   .clearfix{}
-  .nextmonth,.lastmonth{
+
+  .calendars_daymode>.calendars_daysWrap>.nextmonth,.calendars_daymode>.calendars_daysWrap>.lastmonth{
     background: #f8f8f8;
-    height: 85px;
-    position: relative;
+     position: relative;
+     width: (100%/7);
+     min-height: 85px;
+     border-left-width: 0;
+     border-top-width: 0;
   }
   .clearfix:after{
     clear: both;
   }
-  .week th{
-    line-height: 30px;
-  }
-  .week{
-    border: solid 1px #f5f5f5;
-  }
 
-  .calendars_tabWrap{
+.calendars_tabWrap{
     width: 100%;
   display: table;
-  }
-  .calendars_tbody{
-    width: 100%;
-  display: table;
-  }
-  .lightbrown{
-     background: #ede9dd;
-  }
-  .days td {
-    max-width: 14.28571%;
-    width: 14.28571%;
+  background: #ede9dd;
   }
 
-    .tab.now>a {
+
+.calendars_tabWrap>.newtab>.tab.now>a {
     background-color: #fff;
     }
-    .tab.now>a>span {
+.calendars_tabWrap>.newtab>.tab.now>a>span {
     color:#e10500;
     }
-    .tab>a>span {
+.calendars_tabWrap>.newtab>.tab>a>span {
         display: block;
     }
 
-    .tab{
+.calendars_tabWrap>.newtab>.tab{
       border-top: 3px solid #ede9dd;
       width: 33.333%;
       box-sizing: border-box;
@@ -106,7 +102,7 @@ $classname: 'calendar';
       height: 50px;
     }
 
-    .tab>a{
+.calendars_tabWrap>.newtab>.tab>a{
     display: inline-block;
     font-size: 16px;
     height: 50px;
@@ -119,7 +115,7 @@ $classname: 'calendar';
 
 
 
-  .newtab{
+.calendars_tabWrap>.newtab{
     padding: 0;
     float: left;
     width: calc(100% - 40px);
@@ -132,7 +128,7 @@ $classname: 'calendar';
     box-sizing: border-box;
    }
 
-    .calendars_tabWrap>a{
+ .calendars_tabWrap>a{
       display: block;
       width: 20px;
       float: left;
@@ -143,34 +139,36 @@ $classname: 'calendar';
 
 
 /*------------------------------------*/
-    .next,.pre{
+.calendars_tabWrap>.next,.calendars_tabWrap>.pre{
       cursor: pointer;
       height: 50px;
     }
 
-  .next:before {
+.calendars_tabWrap>.next:before {
     right: -1px;
     border-width: 7px 0 7px 7px;
     border-color: transparent transparent transparent #e10500;
    }
-   .pre:before {
+.calendars_tabWrap>.pre:before {
     left: -1px;
     border-width: 7px 7px 7px 0;
     border-color: transparent #e10500 transparent transparent;
    }
-   .details{
-    padding-top: 18px;
+   /*------------這邊以下調整-----------------*/
+    .calendars_daymode>.calendars_daysWrap>.days>.date>.num{
+    position: relative;
+    display: block;
+    color: #444;
+    font-size: 12px;
+  }
+   
+    .calendars_daymode>.calendars_daysWrap>.days>.price,.calendars_daymode>.calendars_daysWrap>.days>.sell,.calendars_daymode>.calendars_daysWrap>.days>.group,.calendars_daymode>.calendars_daysWrap>.days>.status{
+    display: block;
+    width: 100%;
     position: relative;
     font-size: 12px;
     }
-   
-    .price,.sell,.group{
-    display: inline-block;
-    width: 100%;
-    line-height: 16px;
-    position: relative;
-    }
-    .status{
+   .status{
       color:#24a07c;
     }
     .price{
@@ -179,7 +177,7 @@ $classname: 'calendar';
     .sell i,.group i{
       font-style: normal;
     }
-   .calendars_tabWrap>a:before {
+.calendars_tabWrap>a:before {
     content: "";
     position: absolute;
     top: 0;
@@ -193,7 +191,7 @@ $classname: 'calendar';
     border-style: solid;
     }
 
-  .box:hover{
+  .calendars_daymode>.calendars_daysWrap>.days:hover{
     background:#fff9e3;
   }
   /*span 在各種不同字的時候改變顏色*/
@@ -201,78 +199,95 @@ $classname: 'calendar';
     color: #ff7800;
   }
 
-  .tip{
+  .calendars_daymode>.calendars_daysWrap>.days>.tip{
     position: absolute;
-    height: 48px;
-    width: 20px;
     top: 0;
     right: -1px;
+    width: 48px;
+    height: 20px;
+    color: #fff;
+    text-align: center;
     line-height: 20px;
-    background: #66bb3c;
+    background-color: #66bb3c;
+        font-size: 12px;
   }
-/**/
-  /*calendars_daymode,calendars_listmode*/
-  .d-no{
-    display: none;
-  }
-  .listH{
-    min-height: 496px;
-    width: 100%;
-  }
-  .listH>ul{
-    width: 100%;
-  }
-  .listH>ul>li{
+  .calendars_daymode>.calendars_daysWrap>.days>.weekday {
+          display: none;
+          float: left;
+        }
+
+
+
+/*------------------listmode---------------*/
+
+
+  .calendars_listmode>.calendars_weeksWrap{
+      display: none;
+    }
+     .calendars_listmode>.calendars_daysWrap>.days.hasdata{
+      display: table;
+    }
+
+.calendars_listmode>.calendars_daysWrap>.days{
         width: 100%;
-        height: 62px;
-        display: table;
+        display: none;
         border-style: solid;
         border-color: transparent #e3e3e3 #e3e3e3;
         border-width: 1px;
         cursor: pointer;
   }
-  .listH>ul>li:hover{
-    border: 1px solid #66bb3c;
-    background-color: #fff9e3;
-    }
-  .listH>ul>li.active{
-      border: 1px solid #66bb3c;
-      background-color: #fff9e3;
-      }
-
-  .li-left,.li-mid,.li-right{
-
+  .calendars_listmode>.calendars_daysWrap>.days:hover{
+  background:#fff9e3;
   }
-  .li-block.date span {
+    .calendars_listmode>.calendars_daysWrap>.days.active{
+  background:#fff9e3;
+  border: solid 2px #66bb3c;
+  }
+  .calendars_listmode>.calendars_daysWrap>.days>.date{
+     display: inline-block; 
+     text-align: center;
+     font-size: 24px;
+     float: left;
+   }
+  .calendars_listmode>.calendars_daysWrap>.days>.tip{
+    float: left;
+    padding-top:5px;
+    background: #66bb3c;
+    text-align: center;
+    color: #fff;
+    padding: 0 5px;
+  }
+
+  .calendars_listmode>.calendars_daysWrap>.days>.date>.weekday{
+    text-align: center;
     display: block;
     font-size: 16px;
+  }
+  .calendars_listmode>.calendars_daysWrap>.days>.price{
+    float: right;
+    clear: right;
+    font-size: 16px;
+  }
+
+  .calendars_listmode>.calendars_daysWrap>.days>.status{
+    float: right;
+    font-size: 16px;
+  }
+
+   .calendars_listmode>.calendars_daysWrap>.days>.sell{
+    display: inline-block;
+    padding-right: 30px;
+    }
+    .calendars_listmode>.calendars_daysWrap>.days>.group{
+    display: inline-block;
+    padding-right: 30px;
+    }
+.listchange{
+  cursor: pointer;
 }
-  .li-block{
-    height: 100%;
-    padding: 5px;
-    display: table-cell;
-  }
-  .li-block.date {
-    color: #666;
-    text-align: center;
-    font-size: 24px;
-  }
-  .li-block.li-left,.li-block.li-right {
-    width: 1%;
-    white-space: nowrap;
-    }
-    .lbcontent>span {
-    margin-right: 30px;
-    }
-    .price-label{
-     display: block;
-     text-align: right;
-    font-size: 16px;
-    }
-    .li-block.price{
-      display: block;
-    font-size: 16px;
-  }
+  /*calendars_daymode,calendars_listmode*/
+
+
 
   @media screen and (max-width:376px) {
 
