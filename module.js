@@ -571,7 +571,7 @@ class Module {
 				          html += '<li class="nextmonth"></li>'
 				    	}
 			         };
-			        $('.calendars_daysWrap').append(html);	       
+			    $('.calendars_daysWrap').append(html);	       
 
 			    $('.calendars_daysWrap').find('.price').parent().addClass('hasdata'); 
 
@@ -579,8 +579,9 @@ class Module {
                 $('.calendars').find('.hasdata').removeClass('active');
                 $(this).addClass('active');
             	});
+
+
 			    });//----ajax end 
-                   
           	    return this;
           }
         
@@ -617,7 +618,7 @@ class Module {
    		 };
 
 	destroy(){
-        $('.calendar').empty();
+        $('.calendars').empty();
         return this;
     }		
 	methods () {

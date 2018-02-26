@@ -43,6 +43,7 @@ $classname: 'calendar';
         border-top-width: 0;
         border: solid 1px #f5f5f5;
         cursor: pointer;
+        box-sizing: border-box;
   }
 
    .calendars_daymode>.calendars_weeksWrap{
@@ -57,8 +58,10 @@ $classname: 'calendar';
   }
 
   .calendars_daymode>.calendars_daysWrap>.days.active{
-    border: solid 2px #66bb3c;
+    border: solid 1px #66bb3c;
     background:#fff9e3;
+    box-sizing: border-box;
+
   }
 
   .clearfix{}
@@ -235,13 +238,15 @@ $classname: 'calendar';
         border-color: transparent #e3e3e3 #e3e3e3;
         border-width: 1px;
         cursor: pointer;
+        box-sizing: border-box;
   }
   .calendars_listmode>.calendars_daysWrap>.days:hover{
   background:#fff9e3;
   }
     .calendars_listmode>.calendars_daysWrap>.days.active{
   background:#fff9e3;
-  border: solid 2px #66bb3c;
+  border: solid 1px #66bb3c;
+  box-sizing: border-box;
   }
   .calendars_listmode>.calendars_daysWrap>.days>.date{
      display: inline-block; 
