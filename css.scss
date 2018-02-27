@@ -31,6 +31,9 @@ $classname: 'calendars';
   ul li {
     list-style-type:none;
   }
+  .calendar{
+    overflow: hidden;
+  }
   .calendars_daymode>.calendars_daysWrap{
     display: flex;
     flex-wrap: wrap;
@@ -56,6 +59,10 @@ $classname: 'calendars';
    .calendars_daymode>.calendars_weeksWrap>span{
     flex:1;
   }
+  .d-no{
+    display: none;
+  }
+
 
   .calendars_daymode>.calendars_daysWrap>.days.active{
     border: solid 1px #66bb3c;
@@ -79,7 +86,7 @@ $classname: 'calendars';
   }
 
 .calendars_tabWrap{
-    width: 100%;
+  width: 100%;
   display: table;
   background: #ede9dd;
   }
@@ -218,7 +225,9 @@ $classname: 'calendars';
           display: none;
           float: left;
         }
-
+.calendars_daymode>.calendars_daysWrap>.listPage{
+  display: none;
+}
 
 
 /*------------------listmode---------------*/
@@ -233,6 +242,7 @@ $classname: 'calendars';
 
 .calendars_listmode>.calendars_daysWrap>.days{
         width: 100%;
+        height: 62px;
         display: none;
         border-style: solid;
         border-color: transparent #e3e3e3 #e3e3e3;
@@ -253,7 +263,7 @@ $classname: 'calendars';
      text-align: center;
      font-size: 24px;
      float: left;
-     padding: 5px;
+     padding:0 5px;
    }
   .calendars_listmode>.calendars_daysWrap>.days>.tip{
     float: left;
@@ -273,7 +283,6 @@ $classname: 'calendars';
     float: right;
     clear: right;
     font-size: 16px;
-    margin-top: 5px;
   }
 
   .calendars_listmode>.calendars_daysWrap>.days>.status{
@@ -293,6 +302,22 @@ $classname: 'calendars';
   .listchange{
     cursor: pointer;
   }
+  .calendars_listmode>.calendars_daysWrap>.hideLis{
+    display: none;
+  }
+/*  .hide{
+    display: none;
+  }*/
+
+.listPage{
+text-align: center;
+}
+.listPage>.num{
+}
+.prevList{
+}
+.nextList{
+}
   /*calendars_daymode,calendars_listmode*/
 
 
