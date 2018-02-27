@@ -66,10 +66,14 @@ class Module {
 
     getajax() {
     		self=this;
-            $.ajax({method: 'GET',
-			url: './json/data4.json'
-			}).done(function(data){
-            let daydata  = JSON.parse(data);	
+            $.ajax({
+			method: 'GET',
+			url: './json/data4.json',
+			dataType: 'json'
+			}).done(function(data) {
+             let daydata;
+             daydata = data;
+
             //---------------------------篩選json資料重複的------------------------
 		   			var lookup = {};
 					var items = daydata;
@@ -94,9 +98,30 @@ class Module {
       	
 
 			//------------------------------到這邊為止是整理json進來的資料---------------------------
+
+
 			//------------------------------這邊開始設定日期----------------------------------------
 		    
+			//---------------------------------------進入月份--------------------------------------
+			// console.log(self.option.initYearMonth.substring(0,4));
+   //          const aaayear = self.option.initYearMonth.substring(0,4); //2017
+   // 			console.log(self.option.initYearMonth.substring(4.5)); 
+   //         	const aaamonth =self.option.initYearMonth.substring(4.5); //05
+   //          const aaatime = moment().set({'year': aaayear, 'month': aaamonth});
+   // 			console.log(aaatime);//用他的前後月
 
+   // 			const anotherfirstday = aaayear+'/'+aaamonth+'/'+01;
+   			//const resetYear  = aaatime.get('Year');
+      		//const resetMonth = aaatime.get('Month');   
+      		//const preMonth = resetMonth-1;
+      		//const nextMonth = resetMonth+1; 
+            // lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+preMonth+"月"+'</a></span></li>'
+            // lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
+            // lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+nextMonth+"月"+'</a></span></li>'
+
+
+
+			//---------------------------------------進入月份--------------------------------------
          	const firstday = daydateControl[1].date;//######//整串的第一個整串資料的第二筆產月曆
             //console.log(firstday);
 		    const adate =  new Date(firstday);            
@@ -122,20 +147,10 @@ class Module {
             //----產tab
             let lihtml = '';
             //-----------新作的tab
-            //抓到預設起始月份 //201705
-           	//console.log(self.option.initYearMonth.substring(0,4));
-            // const aaayear = self.option.initYearMonth.substring(0,4); //2017
-   			//console.log(self.option.initYearMonth.substring(4.5)); 
-           	// const aaamonth =self.option.initYearMonth.substring(4.5); //05
-            // const aaatime = moment().set({'year': aaayear, 'month': aaamonth});
-   			//console.log(aaatime);//用他的前後月
-   			// const resetYear  = aaatime.get('Year');
-      		//const resetMonth = aaatime.get('Month');   
-      		//const preMonth = resetMonth-1;
-      		//const nextMonth = resetMonth+1; 
-            // lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+preMonth+"月"+'</a></span></li>'
-            // lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
-            // lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+nextMonth+"月"+'</a></span></li>'
+
+           	
+
+   			
             
        		lihtml += '<li class="tab"><a href="#"><span>2016 11月</a></span></li>'			
        		lihtml += '<li class="tab"><a href="#"><span>2016 12月</a></span></li>'
@@ -143,18 +158,18 @@ class Module {
             //console.log(lihtml);
 
             //--------------------tab2
-//--------------------------抓ajax檔案做的li
-            //let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
-    //         for(i = 0; i<3; i++){//3記得改回numofdata
-    //             const lidate = daydateControl[i].date;
+	//--------------------------抓ajax檔案做的li
+            	//let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
+    //         //for(i = 0; i<3; i++){//3記得改回numofdata
+    //             //const lidate = daydateControl[i].date;
     //             //console.log(lidate);//日期
-    //             const liNewDate = new Date(lidate);//把日期設為這個迴圈的日期
-    //             const liMonth = liNewDate.getMonth();
+    //             //const liNewDate = new Date(lidate);//把日期設為這個迴圈的日期
+    //             //const liMonth = liNewDate.getMonth();
     //             //console.log(liMonth);//這個迴圈的月份
-    //             const liYear = liNewDate.getFullYear();
+    //             //const liYear = liNewDate.getFullYear();
     //             //console.log(liYear);
 				// let resetTime = moment().set({'year': liYear, 'month': liMonth});//轉向到這個日期
-    //          	//console.log(resetTime);//
+  				//console.log(resetTime);//
 				// const resetMonth = resetTime.get('Month')+1;
 				// const resetYear  = resetTime.get('Year');
 				// lihtml += '<li class="tab"><a href="#"><span>'+resetYear+" "+resetMonth+"月"+'</a></span></li>'
@@ -194,7 +209,7 @@ class Module {
 	        		let daynum;
 	        		let monthnum;
 		        	if(j<10){ daynum = '0'+j;}else{daynum = j;}
-			        if(limMonth<10){ monthnum='0'+limMonth }else{ monthnum=limMonth }
+			        if(limMonth<10){ monthnum='0'+limMonth }else{monthnum=limMonth}
 	                html += '<li class="days'+" "+mYear+monthnum+daynum+'"><div class="date"><span class="num">';
 	                const cuttectDate = ''.concat(mYear, monthnum, daynum);
 					const weekdate =  new Date(mYear+'/'+monthnum+'/'+daynum);   
@@ -247,7 +262,7 @@ class Module {
 	            
 	        //-----點擊特效
 	  		
-			
+
 			$('.calendars_daysWrap').append(html);   
 
 			$('.calendars_daysWrap').find('.price').parent().addClass('hasdata');
@@ -266,11 +281,14 @@ class Module {
  creatnewtbody(){
     				//ajax 把要得抓來
     				//把class依樣加進年月日 在對好塞span
-    				$.ajax({method: 'GET',
-					url: './json/data4.json'
-					}).done(function(data){
-		             let daydata  = JSON.parse(data);	
-					//console.log(daydata);
+    				$.ajax({
+					method: 'GET',
+					url: './json/data4.json',
+					dataType: 'json'
+					}).done(function(data) {
+		             let daydata;
+		             daydata = data;
+
 		            //---------------------------篩選json資料重複的------------------------
 				   			var lookup = {};
 							var items = daydata;
