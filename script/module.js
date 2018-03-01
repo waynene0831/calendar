@@ -90,18 +90,14 @@ class Module {
 			        if(currentPage== totalPage){
 			                    self.$this.find('.nextList').addClass('hide');
 			        } 
-			        ////////////////////////////////////////////////////////////////////////////////////////////////////
-			        
 
-			        /////////用addClass來做!///////////////////////////////////////////////////////////////////////////////
-			        this.$this.find('.daysWithData:gt(7)').addClass('hideLis');
+			        this.$this.find('.hasdata:gt(7)').addClass('hideLis');
 			        // this.$this.find('.daysWithData:gt(7)').hide();
-			        /////////////////////////////////用addClass來做,針對兩種模式下不同的css//////////////////////////////////
-			        
+
 			        console.log('totalPage:'+totalPage);
 
 			        this.$this.find('.total_page').text(totalPage);
-			        this.$this.find('.current_page').text(currentPage)
+			        this.$this.find('.current_page').text(currentPage);
 			        //實現下一頁
 			        //如果列表沒有data,則刪去跳頁的連接
 			        if(totalPage==0){
@@ -112,12 +108,13 @@ class Module {
 			        this.$this.find(".nextList").click(function(){
 			          
 			            if(currentPage == totalPage||currentPage == 0){ //當前頁數==最後一頁，禁止下一頁
-			                   return false;
+			                 return false;
 			                }else{//不是最後一頁，顯示應該顯示的數據.
 			                    self.$this.find(".current_page").text(++currentPage);  //當前頁數先+1
 			                    let start=pageSize*(currentPage-1);
 			                    let end=pageSize*currentPage;
-			                    $.each(self.$this.find('.calendar_daysWrap .hasdata'),function(index,item){
+			                    $.each(self.$this.find('.hasdata'),function(index,item){
+			                    	console.log('111');
 			                            if(index >=start && index < end){
 			                                $(this).removeClass('hideLis');
 			                                }
@@ -125,15 +122,14 @@ class Module {
 			                                    $(this).addClass('hideLis');
 			                                    }
 			                        });
-			                    }
-			                ///////////////////////判斷當前頁數來決定是否顯示下一頁or上一頁///////////////////////////////    
+			                    }   
 			                if(currentPage == totalPage){
 			                    self.$this.find(".nextList").addClass('hide');
 			                }
 			                if(currentPage!==1){
 			                    self.$this.find('.prevList').removeClass('hide');
 			                }
-			                ///////////////////////////////////////////////////////////////////////////////////////////  
+			              
 			            });    
 			            //實現上一頁
 
@@ -154,26 +150,17 @@ class Module {
 			                                    }
 			                         });
 			                    }
-
-			              ///////////////////////判斷當前頁數來決定是否顯示下一頁or上一頁///////////////////////////////         
+       
 			                if(currentPage !== totalPage){
 			                    self.$this.find(".nextList").removeClass('hide');
 			                }
 			                if(currentPage ==1){
 			                    self.$this.find('.prevList').addClass('hide');
-			                }
-			             ///////////////////////////////////////////////////////////////////////////////////////////    
+			                }   
 			            }); 
 			               return this;
 			    }
 			
-
-
-
-
-
-
-
     getajax() {
     		self=this;
             $.ajax({
@@ -183,6 +170,7 @@ class Module {
 			}).done(function(data) {
              let daydata;
              daydata = data;
+
              //---------------------------篩選json資料重複的------------------------
 			  var lookup = {};
 			  var items = daydata;
@@ -193,6 +181,7 @@ class Module {
 			  var date = item.date ;
 
 			  //不同資料的key 刪除再新增
+			  
 			  var statusKey = (item.status||item.state) ;
               delete(item.status||item.state) ;
               item.status = statusKey ;	
@@ -454,7 +443,7 @@ class Module {
 				        if(limMonth<10){ monthnum='0'+limMonth }else{ monthnum=limMonth }
 			                html += '<li class="days'+" "+mYear+monthnum+daynum+'"><div class="date"><span class="num">';
 			            	const cuttectDate = ''.concat(mYear, monthnum, daynum);
-			            	const weekdate =  new Date(mYear+'/'+monthnum+'/'+daynum);   
+			            	const weekdate =  new Date(mYear+'/'+monthnum+'/'+daynum);
 	        				weekday = weekdate.getDay();
 			                 //加日期
 			                html += j+'</span><span class="weekday">'+day_list[weekday]+'</span></div>';
