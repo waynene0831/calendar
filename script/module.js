@@ -80,7 +80,7 @@ class Module {
 			        let pageSize=8;      //每頁顯示數據條數
 			        let currentPage=1;   //當前頁數
 			        let totalSize=this.$this.find(".hasdata").length; //獲取總數據
-			        console.log('totalSize:'+ totalSize);
+			        //console.log('totalSize:'+ totalSize);
 			        let totalPage=Math.ceil(totalSize / pageSize); //計算總頁數
 
 			        ////////////////////////////////當前頁數為1時,隱藏上一頁按鈕///////////////////////////////////////////
@@ -94,7 +94,7 @@ class Module {
 			        this.$this.find('.hasdata:gt(7)').addClass('hideLis');
 			        // this.$this.find('.daysWithData:gt(7)').hide();
 
-			        console.log('totalPage:'+totalPage);
+			        //console.log('totalPage:'+totalPage);
 
 			        this.$this.find('.total_page').text(totalPage);
 			        this.$this.find('.current_page').text(currentPage);
@@ -114,7 +114,6 @@ class Module {
 			                    let start=pageSize*(currentPage-1);
 			                    let end=pageSize*currentPage;
 			                    $.each(self.$this.find('.hasdata'),function(index,item){
-			                    	console.log('111');
 			                            if(index >=start && index < end){
 			                                $(this).removeClass('hideLis');
 			                                }
@@ -140,7 +139,7 @@ class Module {
 			                     self.$this.find(".current_page").text(--currentPage);  //當前頁數先-1
 			                     let start=pageSize*(currentPage-1);
 			                     let end=pageSize*currentPage;
-			                      $.each(self.$this.find('.calendar_daysWrap .hasdata'),function(index,item){
+			                      $.each(self.$this.find('.hasdata'),function(index,item){
 			                     // $.each(self.$this.find('.calendar_list ul li'),function(index,item){
 			                           if(index >=start && index < end){
 			                                $(this).removeClass('hideLis');
@@ -170,6 +169,7 @@ class Module {
 			}).done(function(data) {
              let daydata;
              daydata = data;
+
 
              //---------------------------篩選json資料重複的------------------------
 			  var lookup = {};
@@ -484,7 +484,7 @@ class Module {
 				          html += '<li class="nextmonth"></li>'
 				    	}
 			         };
-			     html +='<div class="listPage"><span class="listChangeBox"><a class="prevList"><span class="arrow-gl m-r-xs"></span>上一頁</a></span><span class="num"><span class="current_page"></span><span style="padding:0 3px;">/</span><span class="total_page"></span></span><span class="listChangeBox"><a class="nextList">下一頁<span class="arrow-gr m-lr-xs"></span></a></span></div>';
+			    html +='<div class="listPage"><span class="listChangeBox"><a class="prevList"><span class="arrow-gl m-r-xs"></span>上一頁</a></span><span class="num"><span class="current_page"></span><span style="padding:0 3px;">/</span><span class="total_page"></span></span><span class="listChangeBox"><a class="nextList">下一頁<span class="arrow-gr m-lr-xs"></span></a></span></div>';
 	        
 			    $('.calendars_daysWrap').append(html);	       
 
@@ -506,26 +506,58 @@ class Module {
                 method: 'GET',
                 url: './json/data4.json'
             }).done(function(data){
-            		let daydata  = data;           
-                	var lookup = {};
-					var items = daydata;
-					 daydata = [];
-					for (var item, i = 0; item = items[i++];) {
-					  var date = item.date;			
+
+            		let daydata  = data;
+					console.log('111');
+				 	console.log(daydata);
+
+            		daydata = daydata.concat(inputOpt);   
+					console.log('222');
+			 	 	console.log(daydata);
+
+                	//---------------------------篩選json資料重複的------------------------
+					 var lookup = {};
+					 var items = daydata;
+				     daydata = [];
+
+					 for (var item, i = 0; item = items[i++];) {
+
+					  var date = item.date ;
+
+					  //不同資料的key 刪除再新增
+					  var statusKey = (item.status||item.state) ;
+		              delete(item.status||item.state) ;
+		              item.status = statusKey ;	
+		              
+
+					  var availableVancancyKey = (item.availableVancancy||item.onsell) ;
+		              delete(item.availableVancancy||item.onsell) ;
+		              item.availableVancancy = availableVancancyKey ;	
+
+
+		              var totalVacnacyKey = (item.totalVacnacy||item.total) ;
+		              delete(item.totalVacnacy||item.total) ;
+		              item.totalVacnacy = totalVacnacyKey ;
+
+
+		              var guaranteedKey = (item.guaranteed || item.certain) ;
+		              delete(item.guaranteed || item.certain) ;
+		              item.guaranteed = guaranteedKey ;
+
+
 					  if (!(date in lookup)) {
 					    lookup[date] = 1;
 					    daydata.push(item);
 					  }
-					}
-					//console.log(daydata);
-			 	const inputnewData = inputOpt.concat(daydata);
-	            const inputnewDataControl = inputnewData.sort(function (a, b) {
+					}	
+					//---------------------------篩選json資料重複的------------------------
+
+	             daydata = daydata.sort(function (a, b) {
 					 return a.date > b.date ? 1 : -1;
 					});//用date排序
+	             console.log('333');
+			 	 	console.log(daydata);
 
-                //連接inputData與dataSource
-				const numofinputnewData = inputnewDataControl.length; //算有幾筆資料  
-				const numofdaydateControl = daydateControl.length;
             });
              return this;
    		 };

@@ -1,0 +1,279 @@
+// -------------------------------------
+// Susy Import
+// -------------------------------------
+//@import "susy";
+// -------------------------------------
+// Core Mixins
+// -------------------------------------
+@import "../core/core/mixins";
+// -------------------------------------
+// Variables Import
+// -------------------------------------
+// 載入全域變數
+@import "../core/core/variables";
+// -------------------------------------
+// Components / Modules Setting
+// -------------------------------------
+// 請輸入您的ClassName
+$classname: 'calendars';
+// -------------------------------------
+// 您的CSS Code
+// -------------------------------------
+//以下範例可以刪除，改為您自已的CSS Code
+.#{$classname} {
+	// style on phone device
+	@media screen and (min-width: $screen-tablet) {
+		// style on tablet device
+	}
+	@media screen and (min-width: $screen-desktop) {
+		// style on desktop device
+	}
+	@media screen and (min-width: $screen-lg-desktop) {
+		// style on desktop device
+	}
+	display: flex;
+    flex-wrap: wrap;
+	& > .#{$classname}_tabWrap {
+			  width: 100%;
+			  display: table;
+			  background: #ede9dd;
+		& a{
+			 display: block;
+			      width: 20px;
+			      float: left;
+			      color: transparent;
+			      position: relative;
+		}
+		& > .ntb_tab {
+			padding: 0;
+				    float: left;
+				    width: calc(100% - 40px);
+				    margin-bottom: 0;
+				    white-space: nowrap;
+				    font-size: 0;
+				    overflow: hidden;
+				    height: 50px;
+				    position: relative;
+				    box-sizing: border-box;
+			& > .tab {
+						  border-top: 3px solid #ede9dd;
+					      width: 33.333%;
+					      box-sizing: border-box;
+					      text-align: center;
+					      position: relative;
+					      display: inline-block;
+					      height: 50px;
+				 & a{
+					      	display: inline-block;
+						    font-size: 16px;
+						    height: 50px;
+						    color: #666;
+						    text-decoration: none;
+						    width: 100%;
+						    box-sizing: border-box;
+						    padding-top: 6px;
+						  & span{
+						    	display: block;
+						    }
+					      }
+					      &.now{
+					      	 background-color: #fff;
+					      	 & a{
+					      	 	 background-color: #fff;
+					      	 }
+					      }	      
+			}
+
+		}
+	}
+	& > .#{$classname}_weeksWrap {
+		display: flex;
+		& > span {
+			flex: 1;
+		}
+	}
+	& > .#{$classname}_daysWrap {
+		display: block;
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		& > .#{$classname}_days {
+			display: block;
+			border: 1px solid #eee;
+			@include clearfix;
+			&.disabled {
+
+			}
+			&.hasData {
+
+			}
+			& > .status, & > .sell,& > .group,& > .tip,& > .price {
+				display: none;
+			}
+
+			& > .date {
+				& > .num {}
+				& > .weekday {
+					display: none;
+				}
+			}
+			& > .status {color:#24a07c;}
+			& > .sell i,& > .group i{
+				 font-style: normal;
+			}
+			
+			& > .tip {}
+			& > .price 
+			{color: #e10500;}
+			&:hover {
+				background: #fff9e3;
+			}
+		}
+	}
+	&.#{$classname}_daymode {
+
+		& > .#{$classname}_daysWrap {
+			display: flex;
+			flex-wrap: wrap;
+			& > .days{
+				width: (100%/7);
+				min-height: 85px;
+				border-left-width: 0;
+				border-top-width: 0;
+				border: solid 1px #f5f5f5;
+        		cursor: pointer;
+        		box-sizing: border-box;
+        		& .active{
+					border: solid 1px #66bb3c;
+				    background:#fff9e3;
+				    box-sizing: border-box;
+        		}
+				& > .date {
+					& > .weekday {
+						display: none;
+					}
+				}
+				& > .status, & > .sell,& > .group,& > .tip,& > .price {
+					display: block;
+				}
+			}
+		}
+		& > .#{$classname}_weeksWrap{
+        			display: flex;
+        			& >span {
+        				flex:1;
+        			}
+        		}
+
+        }		
+	}
+	&.#{$classname}_listmode {
+		& > .#{$classname}_weeksWrap {
+			display: none;
+		}
+		& > .#{$classname}_daysWrap {
+			& > .listPage{
+					text-align: center;
+				& >.num{
+					height: 20px;
+				    width: 100%;
+				    text-align: center;
+				}
+				& .prevList{
+					float: left;
+					}
+				&.nextList{ 
+				 	float: right;
+				}
+			}
+			& > .days {
+				width: 100%;
+		        height: 62px;
+		        display: none;
+		        border-style: solid;
+		        border-color: transparent #e3e3e3 #e3e3e3;
+		        border-width: 1px;
+		        cursor: pointer;
+		        box-sizing: border-box;
+		        &.hideLis{
+		        	display: none;
+		        }
+		        &.tip{
+		        	float: left;
+				    padding-top:5px;
+				    background: #66bb3c;
+				    text-align: center;
+				    color: #fff;
+				    padding: 0 5px;
+		        }
+		        &.active{
+		          background:#fff9e3;
+				  border: solid 1px #66bb3c;
+				  box-sizing: border-box;
+		        }
+		        &:hover{
+		        	background:#fff9e3;
+		        }
+				&.hasData {
+					display: block;
+				}
+				& > .date, & > .status, & > .sell,& > .group,& > .tip,& > .price {
+					display: inline-block;
+				}
+				& > .status,& > .price {
+					float: right;
+				}
+				& > .date {
+					float: left;
+					display: inline-block;
+					text-align: center;
+				    font-size: 24px;
+				    padding:0 5px;
+					& > .num {}
+					& > .weekday {
+						text-align: center;
+					    display: block;
+					    font-size: 16px;
+					}
+				}
+				& > .status {
+					  float: right;
+					  font-size: 16px;
+					  margin-top: 5px;
+				}
+				& > .sell {
+					display: inline-block;
+    				padding-right: 30px;
+    			}
+				& > .group {
+					display: inline-block;
+				    padding-right: 30px;
+				}
+				& > .tip {
+					float: left;
+					clear: right;
+					font-size: 16px;
+				}
+				& > .price {
+					float: right;
+    				clear: right;
+					font-size: 16px;
+				}
+			}
+		}
+	}
+}
+  .lg-org{
+    color: #ff7800;
+  }
+      .clearfix{}
+      .clearfix:after{
+    clear: both;
+  }
+    .d-no{
+    display: none;
+  }
+    .calendar{
+    overflow: hidden; 
+    position: relative;
+  }

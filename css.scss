@@ -32,7 +32,8 @@ $classname: 'calendars';
     list-style-type:none;
   }
   .calendar{
-    overflow: hidden;
+    overflow: hidden; 
+    position: relative;
   }
   .calendars_daymode>.calendars_daysWrap{
     display: flex;
@@ -148,7 +149,6 @@ $classname: 'calendars';
 
 
 
-/*------------------------------------*/
 .calendars_tabWrap>.next,.calendars_tabWrap>.pre{
       cursor: pointer;
       height: 50px;
@@ -164,7 +164,6 @@ $classname: 'calendars';
     border-width: 7px 7px 7px 0;
     border-color: transparent #e10500 transparent transparent;
    }
-   /*------------這邊以下調整-----------------*/
     .calendars_daymode>.calendars_daysWrap>.days>.date>.num{
     position: relative;
     display: block;
@@ -231,8 +230,6 @@ $classname: 'calendars';
 
 
 /*------------------listmode---------------*/
-
-
   .calendars_listmode>.calendars_weeksWrap{
       display: none;
     }
@@ -305,18 +302,24 @@ $classname: 'calendars';
   .calendars_listmode>.calendars_daysWrap>.days.hideLis{
     display: none;
   }
-/*  .hide{
-    display: none;
-  }*/
-
+.hide{
+    // display: none;
+  }
 .listPage{
-text-align: center;
+     text-align: center;
 }
+
 .listPage>.num{
+    height: 20px;
+    width: 100%;
+    text-align: center;
 }
+
 .prevList{
+  float: left;
 }
-.nextList{
+.nextList{ 
+ float: right;
 }
   /*calendars_daymode,calendars_listmode*/
 
