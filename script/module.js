@@ -509,11 +509,11 @@ class Module {
 
             		let daydata  = data;
 					console.log('111');
-				 	console.log(daydata);
+				 	console.log(daydata);//進入的數量
 
             		daydata = daydata.concat(inputOpt);   
 					console.log('222');
-			 	 	console.log(daydata);
+			 	 	console.log(daydata);//input加進來後的數量
 
                 	//---------------------------篩選json資料重複的------------------------
 					 var lookup = {};
@@ -555,15 +555,75 @@ class Module {
 	             daydata = daydata.sort(function (a, b) {
 					 return a.date > b.date ? 1 : -1;
 					});//用date排序
-	             console.log('333');
-			 	 	console.log(daydata);
-
+	             	console.log('333');
+			 	 	console.log(daydata);//篩選掉重複後的資料數量
             });
              return this;
    		 };
+resetData(inputOpt){
+        $.ajax({
+                dataType: "json",
+                method: 'GET',
+                url: './json/data4.json'
+            }).done(function(data){
 
+            		let daydata  = data;
+					console.log('111');
+				 	console.log(daydata);//進入的數量
+
+            		daydata = daydata.concat(inputOpt);   
+					console.log('222');
+			 	 	console.log(daydata);//input加進來後的數量
+
+                	//---------------------------篩選json資料重複的------------------------
+					 var lookup = {};
+					 var items = daydata;
+				     daydata = [];
+
+					 for (var item, i = 0; item = items[i++];) {
+
+					  var date = item.date ;
+
+					  //不同資料的key 刪除再新增
+					  var statusKey = (item.status||item.state) ;
+		              delete(item.status||item.state) ;
+		              item.status = statusKey ;	
+		              
+
+					  var availableVancancyKey = (item.availableVancancy||item.onsell) ;
+		              delete(item.availableVancancy||item.onsell) ;
+		              item.availableVancancy = availableVancancyKey ;	
+
+
+		              var totalVacnacyKey = (item.totalVacnacy||item.total) ;
+		              delete(item.totalVacnacy||item.total) ;
+		              item.totalVacnacy = totalVacnacyKey ;
+
+
+		              var guaranteedKey = (item.guaranteed || item.certain) ;
+		              delete(item.guaranteed || item.certain) ;
+		              item.guaranteed = guaranteedKey ;
+
+
+					  if (!(date in lookup)) {
+					    lookup[date] = 1;
+					    daydata.push(item);
+					  }
+					}	
+					//---------------------------篩選json資料重複的------------------------
+
+	             daydata = daydata.sort(function (a, b) {
+					 return a.date > b.date ? 1 : -1;
+					});//用date排序
+	             	console.log('333');
+			 	 	console.log(daydata);//篩選掉重複後的資料數量
+			 	 self.destroy();
+			 	 self.init();
+            });
+             return this;
+   		 };
 	destroy(){
-        $('.calendars').empty();
+        $('.calendar').empty();
         return this;
     }		
 	methods () {

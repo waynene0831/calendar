@@ -8,7 +8,7 @@
 
 // Plugin usage
 
-$('.calendars').calendar({
+$('.calendar').calendar({
 	dataSource: [  // 資料來源的輸入接口 [ array | string ] 如果是 string的話，請輸入網址
 		{
 		    "guaranteed": true, // {boolean}
@@ -53,17 +53,17 @@ $('.calendars').calendar({
     }
 });
 // 下一個有資料的月份
-$('.calendars').calendar('nextMonth', function( data, module ) {
+$('.calendar').calendar('nextMonth', function( data, module ) {
 	console.log(data, module);
 });
 // 上一個有資料的月份
-$('.calendars').calendar('prevMonth', function( data, module ) {
+$('.calendar').calendar('prevMonth', function( data, module ) {
 	console.log(data, module);
 });
 // 切換日曆或列表模式
 $('.calendar').calendar('switch');
 // 加資料時如果有相同日期的資料，以後輸入為主，輸入時如果輸入沒有的月份，模組會加上該月份
-$('.calendars').calendar('inputData', [
+$('.calendar').calendar('inputData', [
 	{
 	    "guaranteed": true, // {boolean}
 	    "date": "2016/12/15", // {string} YYYY/MM/DD
@@ -75,7 +75,7 @@ $('.calendars').calendar('inputData', [
 	// ...
 ]);
 // 重設資料時，月曆、tab重新產出
-$('.calendars').calendar('resetData', [
+$('.calendar').calendar('resetData', [
 	{
 	    "guaranteed": true, // {boolean}
 	    "date": "2016/12/15", // {string} YYYY/MM/DD
