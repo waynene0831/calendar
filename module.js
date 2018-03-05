@@ -181,7 +181,48 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Module; });
 const ModuleName = 'calendar';
 const ModuleDefaults =  {
-  
+  dataSource: [  // 資料來源的輸入接口 [ array | string ] 如果是 string的話，請輸入網址
+    {
+        "guaranteed": true, // {boolean}
+        "date": "2016/12/15", // {string} YYYY/MM/DD
+        "price": "234567", // {string|number} XXXXXX | 近期上架
+        "availableVancancy": 0, // {number}
+        "totalVacnacy": 20, // {number}
+        "status": "報名" // {string} 報名(#24a07c) | 後補(#24a07c) | 預定(#24a07c) | 截止(#ff7800) | 額滿(#ff7800) | 關團(#ff7800)
+    },
+    // ...
+  ],
+  // 輸入一開始要在哪一個月份 [string] YYYYMM，若輸入的年月沒有資料，
+  // 就要找相近的年月，若前一個月後一個月都有資料，就顯示資料比數比較多的那一個月
+  initYearMonth: '2017-05',
+  // 設定各資料的key
+  dataKeySetting: {
+        // 保證出團
+        'guaranteed': 'guaranteed',
+        // 狀態
+        'status': 'status',
+        // 可賣團位
+        'available': 'availableVancancy',
+        // 團位
+        'total': 'totalVacnacy',
+        // 價格
+        'price': 'price',
+    },
+    // 點上一個月時
+    // @param $btn {$object} jquery 物件
+    // @param $data {array} 上一個月的資料
+    // @param module {object} 此模組實例物件
+    onClickPrev: function( $btn, data, module ) {
+      console.log($btn, data, module);
+    },
+    // 點下一個月時
+    onClickNext: function( $btn, data, module ) {
+      console.log($btn, data, module);
+    },
+    // 點日期時
+    onClickDate: function( $date, data ){
+        console.log($date, data);
+    }
 };
 const ModuleReturns = [];
 
@@ -217,10 +258,7 @@ class Module {
              	if($('.tab:eq(1)').hasClass('now')){
              		$('.tab:eq(0)').removeClass('d-no');
              	}; 
-
               	self.creatnewtbody();
-              	
-            
              });
              //---next
                	$('.next').on('click',function(){
@@ -233,7 +271,7 @@ class Module {
              		$('.tab:eq(0)').addClass('d-no');
              	};          	
              	self.creatnewtbody();               
-             }); 
+             	}); 
               //---列表日曆切換
 		        $('.listchange').on('click',function(){
 		        	self.switch();
@@ -258,25 +296,19 @@ class Module {
 		listpage(){
 			       	let self = this;
 			        //實現分頁思路:
-			        let pageSize=8;      //每頁顯示數據條數
-			        let currentPage=1;   //當前頁數
+			        let pageSize = 8;      //每頁顯示數據條數
+			        let currentPage = 1;   //當前頁數
 			        let totalSize=this.$this.find(".hasdata").length; //獲取總數據
 			        //console.log('totalSize:'+ totalSize);
 			        let totalPage=Math.ceil(totalSize / pageSize); //計算總頁數
-
-			        ////////////////////////////////當前頁數為1時,隱藏上一頁按鈕///////////////////////////////////////////
-			        if(currentPage ==1){
-			                    self.$this.find('.prevList').addClass('hide');
+			        if(currentPage == 1){
+			           self.$this.find('.prevList').addClass('hide');
 			        }
-			        if(currentPage== totalPage){
-			                    self.$this.find('.nextList').addClass('hide');
+			        if(currentPage == totalPage){
+			           self.$this.find('.nextList').addClass('hide');
 			        } 
-
 			        this.$this.find('.hasdata:gt(7)').addClass('hideLis');
-			        // this.$this.find('.daysWithData:gt(7)').hide();
-
 			        //console.log('totalPage:'+totalPage);
-
 			        this.$this.find('.total_page').text(totalPage);
 			        this.$this.find('.current_page').text(currentPage);
 			        //實現下一頁
@@ -285,13 +317,12 @@ class Module {
 			            this.$this.find('.listPage').remove();
 			        };
 			        //如果列表沒有data,則刪去跳頁的連接
-
 			        this.$this.find(".nextList").click(function(){
 			          
-			            if(currentPage == totalPage||currentPage == 0){ //當前頁數==最後一頁，禁止下一頁
+			            if(currentPage == totalPage||currentPage == 0){ 
 			                 return false;
-			                }else{//不是最後一頁，顯示應該顯示的數據.
-			                    self.$this.find(".current_page").text(++currentPage);  //當前頁數先+1
+			                }else{
+			                    self.$this.find(".current_page").text(++currentPage);
 			                    let start=pageSize*(currentPage-1);
 			                    let end=pageSize*currentPage;
 			                    $.each(self.$this.find('.hasdata'),function(index,item){
@@ -309,19 +340,17 @@ class Module {
 			                if(currentPage!==1){
 			                    self.$this.find('.prevList').removeClass('hide');
 			                }
-			              
 			            });    
-			            //實現上一頁
+
 
 			        this.$this.find(".prevList").click(function(){
-			            if(currentPage == 1 ){//當前頁數==1，禁止上一頁
+			            if(currentPage == 1 ){
 			                 return false;
 			                }else{
-			                     self.$this.find(".current_page").text(--currentPage);  //當前頁數先-1
+			                     self.$this.find(".current_page").text(--currentPage);
 			                     let start=pageSize*(currentPage-1);
 			                     let end=pageSize*currentPage;
 			                      $.each(self.$this.find('.hasdata'),function(index,item){
-			                     // $.each(self.$this.find('.calendar_list ul li'),function(index,item){
 			                           if(index >=start && index < end){
 			                                $(this).removeClass('hideLis');
 			                                }
@@ -330,7 +359,6 @@ class Module {
 			                                    }
 			                         });
 			                    }
-       
 			                if(currentPage !== totalPage){
 			                    self.$this.find(".nextList").removeClass('hide');
 			                }
@@ -489,7 +517,7 @@ class Module {
 						     else{
 						       html += '<span class="status">'+daydateControl[k].status+'</span>' ;
 						     };
-						    html +='<span class="sell">可賣 : '+daydateControl[k].availableVancancy+'</span><span class="group">團位 : '+daydateControl[k].totalVacnacy+'</span><span class="price">$'+daydateControl[k].price+'</span>'
+						    html +='<span class="sell">可賣 :  ' + daydateControl[k].availableVancancy + '</span><span class="group">團位 : '+daydateControl[k].totalVacnacy+'</span><span class="price">$'+daydateControl[k].price+'</span>'
 				       		if(daydateControl[k].guaranteed == true){
 				       		html +='<span class="tip">保證出團<span>';
 				       		}
@@ -742,6 +770,14 @@ class Module {
              return this;
    		 };
 resetData(inputOpt){
+			self.destroy();
+			this.$ele.append('<div class="calendars calendars_daymode"></div>');        
+            //月份
+            this.$ele.find('.calendars').append('<div class="calendars_tabWrap"><a class="pre"></a><ul class="newtab"></ul><a class="next"></div>')
+            //星期
+            this.$ele.find('.calendars').append('<div class="calendars_weeksWrap"><span>星期日</span><span>星期一</span><span>星期二</span><span>星期三</span><span>星期四</span><span>星期五</span><span>星期六</span></div>');
+           	//日期
+            this.$ele.find('.calendars').append('<ul class="calendars_daysWrap"></ul>')
         $.ajax({
                 dataType: "json",
                 method: 'GET',
@@ -791,18 +827,174 @@ resetData(inputOpt){
 					    daydata.push(item);
 					  }
 					}	
-					//---------------------------篩選json資料重複的------------------------
+					//---------------------------篩選json資料重複的
+					//篩選部分還有沒辦法用新的蓋掉的問題
 
-	             daydata = daydata.sort(function (a, b) {
+	             const daydateControl = daydata.sort(function (a, b) {
 					 return a.date > b.date ? 1 : -1;
 					});//用date排序
 	             	console.log('333');
-			 	 	console.log(daydata);//篩選掉重複後的資料數量
-			 	 self.destroy();
-			 	 self.init();
+			 	 	console.log(daydateControl);//篩選掉重複後的資料數量
+			 	 	const numofdata = daydateControl.length; //算有幾筆資料   
+
+			//---------------------------------------進入月份--------------------------------------
+		    const aaayear = self.option.initYearMonth.substring(0,4); //2017
+		    const aaamonth =self.option.initYearMonth.substring(5.5); //05
+	   		//console.log(anotherfirstday);
+			let initYearMonth = self.option.initYearMonth ;
+			//console.log(initYearMonth);
+			let tabhtml = '';
+			for ( i=0 ; i<4 ; i++ ) {
+			let nextMonth = moment(initYearMonth).add(i, 'months').format("YYYY MM");
+			//console.log(nextMonth);
+			tabhtml += '<li class="tab"><a href="#"><span>'+ nextMonth +'月</span></a></li>'
+				}
+			//console.log(tabhtml);
+			$('.newtab').append(tabhtml);//產生initYearmonth設定的月
+
+			//---------------------------------------進入月份end--------------------------------------
+
+			//------------------------點擊換月曆--------------
+			$('.tab').on('click',function(){
+			 	$('.calendars_daysWrap>li').remove();
+			 	$('.listPage').remove();
+			 		$('.newtab').find('.now').removeClass('now');
+			 		//$('.listH>ul').remove();
+			 		$(this).addClass('now');
+
+			 		if($('.tab:eq(2)').hasClass('now')){
+             		$('.tab:eq(0)').addClass('d-no');
+             	     }
+             	    else if($('.tab:eq(1)').hasClass('now')){
+             		$('.tab:eq(0)').removeClass('d-no');
+             	    };
+
+			 		self.creatnewtbody();
+			       });
+			//-----------------------點擊換月曆 end------------- 
+
+            $('.tab:eq(0)').addClass('now');//--------------------進來後第一個要顯示的tab
+	      	//---------------產生月曆----------------------
+	      	const anotherfirstday = aaayear+'/'+aaamonth+'/'+'01';
+		    const adate =  new Date(anotherfirstday);// 目前是用預設月份產月曆         
+	        const mYear =adate.getFullYear();       //本年 //const mYear = date.getFullYear(); 
+	        const mMonth = adate.getMonth();
+	        const day_list = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+			//console.log(day_list[weekday]);
+	        let limMonth =mMonth+1;//本月
+	        //const mMonth = date.getMonth(); 
+	        const startDay = adate.getDay();//補滿最後一排月曆開頭的幾天
+            const mDays = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+            if ( ( (mYear % 4 == 0) && (mYear % 100 != 0) ) || (mYear % 400 == 0) ) mDays[1] = 29;
+            const nDays = mDays[mMonth];		
+		    const total = mDays[mMonth] + startDay;
+            // console.log(nDays);//當月天數
+		    const totalCells = total + ( total%7 ? 7 - total%7 : 0 );
+		    const lastDay = totalCells - nDays - startDay;
+		    // console.log(lastDay);//補滿最後一排月曆剩下的幾天
+	        var i;        //日期
+	        var html = '';
+	        html += '';
+	        for (i = 0; i < startDay; i++) {
+	            html += '<li class="lastmonth"><div></div></li>';
+	        }	
+	        //console.log(daydateControl);
+	        for (var j = 1; j <= nDays; j++) {//mYear mMonth j
+	        		let weekday;
+	        		let daynum;
+	        		let monthnum;
+		        	if(j<10){ daynum = '0'+j;}else{daynum = j;}
+			        if(limMonth<10){ monthnum='0'+limMonth }else{monthnum=limMonth}
+	                html += '<li class="days'+" "+mYear+monthnum+daynum+'"><div class="date"><span class="num">';
+	                const cuttectDate = ''.concat(mYear, monthnum, daynum);
+					const weekdate =  new Date(mYear+'/'+monthnum+'/'+daynum);   
+	        		weekday = weekdate.getDay();
+	                 // console.log(cuttectDate);
+	                html += j+'</span><span class="weekday">'+day_list[weekday]+'</span></div>'; //加日期
+
+	                //---------對日期塞detail 
+	         		for(let k = 0; k<numofdata; k++){
+				         const DD = parseInt(daydateControl[k].date.substring(8.9));//全部的天數//
+				         const MM = parseInt(daydateControl[k].date.substring(5.7));//月份
+				         let ddd; 
+				         let mmm;
+				         if (DD<10){ddd="0"+DD;}else{ddd=DD;}	        
+				         if (MM<10){mmm="0"+MM;}else{mmm=MM;}
+
+				         const YYYY = parseInt(daydateControl[k].date.substring(0.4));//年份
+				         const rr =	''.concat(YYYY,mmm, ddd);
+				         //console.log(rr);     
+				        if(cuttectDate===rr){      	
+				       		if(daydateControl[k].status==='額滿' ||daydateControl[k].status==='截止' ||daydateControl[k].status==='後補'){
+						        html += '<span class="status lg-org">'+daydateControl[k].status+'</span>' ;
+						     }
+						    else{
+						        html += '<span class="status">'+daydateControl[k].status+'</span>' ;
+						     };
+						    	html +='<span class="sell">可賣 : '+daydateControl[k].availableVancancy+'</span><span class="group">團位 : '+daydateControl[k].totalVacnacy+'</span><span class="price">$'+daydateControl[k].price+'</span>'
+				       		if(daydateControl[k].guaranteed == true){
+				       			html +='<span class="tip">保證出團<span>';
+				       		}
+				        }
+				    	};	
+	                //---------對日期塞detail end
+	                html += '</div></li>';}           
+              //--------------------------------------------
+		        for (i = 0; i<lastDay; i++) {
+		            html += '<li class="nextmonth"></li>';
+		        }
+	         //--------------------------------------------
+		         if(totalCells<=35){
+		        	for (i = 0; i<7; i++) {
+		          html += '<li class="nextmonth"></li>'
+		    	}
+	         };
+	         html +='<div class="listPage"><span class="listChangeBox"><a class="prevList"><span class="arrow-gl m-r-xs"></span>上一頁</a></span><span class="num"><span class="current_page"></span><span style="padding:0 3px;">/</span><span class="total_page"></span></span><span class="listChangeBox"><a class="nextList">下一頁<span class="arrow-gr m-lr-xs"></span></a></span></div>';
+	        
+	      	//---------------產生月曆end----------------------   
+			$('.calendars_daysWrap').append(html);   
+
+			$('.calendars_daysWrap').find('.price').parent().addClass('hasdata');
+
+			$('.calendars').find('.hasdata').on('click', function() { 
+                $('.calendars').find('.hasdata').removeClass('active');
+                $(this).addClass('active');
+            });
+
+			self.listpage();
+
+			$('.pre').on('click',function(){
+ 				$('.calendars_daysWrap>li').remove();
+ 				$('.listPage').remove();
+             	$('.newtab').find('.now').prev().addClass('now');
+             	$('.newtab').find('.now').next().removeClass('now');
+
+             	if($('.tab:eq(1)').hasClass('now')){
+             		$('.tab:eq(0)').removeClass('d-no');
+             	};
+              	self.creatnewtbody();//要更改成用inputdata的內容產出的月曆 
+              						 //不然會吃不到input近來concat進去的部分  
+             });
+             //---next
+               	$('.next').on('click',function(){
+             	$('.calendars_daysWrap>li').remove();
+             	$('.listPage').remove();
+             	$('.newtab').find('.now').next().addClass('now');
+             	$('.newtab').find('.now').prev().removeClass('now');
+
+             	if($('.tab:eq(2)').hasClass('now')){
+             		$('.tab:eq(0)').addClass('d-no');
+             	};
+             	self.creatnewtbody();//要更改成用inputdata的內容產出的月曆               
+             	}); 
+
             });
              return this;
    		 };
+
+
+
+
 	destroy(){
         $('.calendar').empty();
         return this;

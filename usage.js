@@ -80,7 +80,7 @@ $('.calendar').calendar('resetData', [
 	    "guaranteed": true, // {boolean}
 	    "date": "2016/12/15", // {string} YYYY/MM/DD
 	    "price": "234567", // {string|number} XXXXXX | 近期上架
-	    "availableVancancy": 0, // {number}
+	    "availableVancancy": 10, // {number}
 	    "totalVacnacy": 20, // {number}
 	    "status": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
 	},
